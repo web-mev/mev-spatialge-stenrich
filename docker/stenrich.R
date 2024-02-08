@@ -1,4 +1,5 @@
 suppressMessages(library(spatialGE))
+suppressMessages(library(reshape2))
 
 # Remove after importing flat file for the mSigDB data
 library(msigdbr)
@@ -21,6 +22,10 @@ option_list <- list(
         help='Sample name'
     ),
     make_option(
+        c('-g', '--gmt_file'),
+        help='GMT formatted gene set input'
+    ),
+    make_option(
         c('-o','--output_file_prefix'),
         help='The prefix for the output file'
     )
@@ -34,32 +39,24 @@ spat <- STlist(rnacounts="./s117d", samples=c("s117d"))
 # normalize
 spat <- transform_data(spat, method='sct')
 
-# Load the gene sets for human from mSigDB
-# Returns a tibble (4,331,807 x 15)
-#   gs_cat gs_subcat      gs_name        gene_symbol entrez_gene ensembl_gene   
-#   <chr>  <chr>          <chr>          <chr>             <int> <chr>          
-# 1 C3     MIR:MIR_Legacy AAACCAC_MIR140 ABCC4             10257 ENSG00000125257
-# 2 C3     MIR:MIR_Legacy AAACCAC_MIR140 ABRAXAS2          23172 ENSG00000165660
-# 3 C3     MIR:MIR_Legacy AAACCAC_MIR140 ACTN4                81 ENSG00000130402
-geneSets <- msigdbr(species="Homo sapiens")
-# Filter the gene sets for Hallmark genes
-# Just an example to shrink the test space
-# Optional
-geneSets <- geneSets[geneSets['gs_cat'] == "H",]
+# load the GMT
+gmt <- read.table(
+    opt$gmt_file,
+    header=F,
+    sep="\t",
+    fill=T
+)
+# Munge the GMT into the format required by spatialGE
+# Clunky but works
+geneSets <- t(gmt[, 3:dim(gmt)[2]])
+colnames(geneSets) <- gmt[, 1]
+geneSets <- melt(geneSets)
+geneSets <- geneSets[geneSets$value != "", ] # Drop the empty gene fields
+# If you are not sending individual pathways files for the
+# various collections, a filter will be needed.
 
-# Convert gene set dataframe to list
-# The result is a named list. The names of the list are the names of each gene set
-# The contents of each list element are the gene names within each gene set
-geneSets <- split(x=geneSets[['gene_symbol']], f=geneSets[['gs_name']])
-# Example: geneSets$HALLMARK_WNT_BETA_CATENIN_SIGNALING
-# [1] "ADAM17" "AXIN1"  "AXIN2"  "CCND2"  "CSNK1E" "CTNNB1" "CUL1"   "DKK1"  
-# [9] "DKK4"   "DLL1"   "DLL1"   "DVL2"   "FRAT1"  "FZD1"   "FZD8"   "GNAI1" 
-#[17] "HDAC11" "HDAC2"  "HDAC5"  "HEY1"   "HEY2"   "JAG1"   "JAG2"   "KAT2A" 
-#[25] "LEF1"   "MAML1"  "MAML1"  "MYC"    "NCOR2"  "NCSTN"  "NKD1"   "NOTCH1"
-#[33] "NOTCH4" "NOTCH4" "NOTCH4" "NOTCH4" "NOTCH4" "NOTCH4" "NOTCH4" "NUMB"  
-#[41] "PPARD"  "PSEN2"  "PTCH1"  "RBPJ"   "SKP2"   "TCF7"   "TP53"   "WNT1"  
-#[49] "WNT5B"  "WNT6"  
-
+# Convert dataframe to named list
+geneSets <- split(x=geneSets[['value']], f=geneSets[['Var2']])
 
 # Perform enrichment analysis (exports as tibble)
 # Options to potentially make transparent
