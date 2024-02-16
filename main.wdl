@@ -15,7 +15,7 @@ workflow STEnrich {
             sample_name = sample_name,
             normalization_method = normalization_method,
             gene_set_database = gene_set_database,
-            organism = organism
+            organism = organism,
             gene_id_choice = gene_id_choice
     }
 
