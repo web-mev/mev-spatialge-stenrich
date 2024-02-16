@@ -42,7 +42,7 @@ fi
 
 if [ ! -z "$GENE_SET_FILE" ]
 then
-    Rscript /work/stenrich.R \
+    Rscript /usr/local/bin/stenrich.R \
         -f $RAW_COUNTS \
         -c $COORDS \
         -s $SAMPLE_ID \
