@@ -37,6 +37,10 @@ option_list <- list(
     make_option(
         c('-i', '--gene_ids'),
         help='The gene identifier system used.'
+    ),
+    make_option(
+        c('-o', '--output'),
+        help='The name of the output file'
     )
 )
 
@@ -187,13 +191,5 @@ q = apply(
 )
 
 results_json_str <- toJSON(q)
-output_filename = 'stenrich_results.json'
-results_json_file <- paste(working_dir, output_filename, sep='/')
+results_json_file <- paste(working_dir, opt$output, sep='/')
 write(results_json_str, results_json_file)
-
-# for WebMEV compatability, need to create an outputs.json file.
-json_str = paste0(
-       '{"stenrich_results":"', results_json_file, '"}'
-)
-output_json <- paste(working_dir, 'outputs.json', sep='/')
-write(json_str, output_json)
