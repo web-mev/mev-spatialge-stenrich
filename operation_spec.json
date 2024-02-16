@@ -86,6 +86,6 @@
             }
         }
     }, 
-    "mode": "local_docker",
+    "mode": "cromwell",
     "workspace_operation": true
 }
