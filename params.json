@@ -1,0 +1,9 @@
+{
+    "raw_counts": "File",
+    "coords_metadata": "File", 
+    "sample_name": "String",
+    "normalization_method":  "String",
+    "gene_set_database":  "String",
+    "gene_id_choice":  "String",
+    "organism":  "String"
+}

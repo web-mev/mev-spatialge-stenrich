@@ -1,9 +1,0 @@
-{
-    "STEnrich.raw_counts": "File",
-    "STEnrich.coords_metadata": "File", 
-    "STEnrich.sample_name": "String",
-    "STEnrich.normalization_method":  "String",
-    "STEnrich.gene_set_database":  "String",
-    "STEnrich.gene_id_choice":  "String",
-    "STEnrich.organism":  "String"
-}
