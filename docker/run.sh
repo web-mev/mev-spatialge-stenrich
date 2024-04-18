@@ -27,11 +27,11 @@ MOUSE_SETS_MAP["Ontology - Biological process"]="/opt/resources/m5.go.bp.v2023.2
 MOUSE_SETS_MAP["Ontology - Molecular function"]="/opt/resources/m5.go.mf.v2023.2.Mm.symbols.gmt"
 MOUSE_SETS_MAP["Ontology - Cellular component"]="/opt/resources/m5.go.cc.v2023.2.Mm.symbols.gmt"
 
-if [ $ORGANISM = "Human" ]
+if [[ $ORGANISM == "Human" ]]
 then
     GENE_SET_FILE=${HUMAN_SETS_MAP[${GENE_SETS_DB}]}
     GENE_MAP_FILE=/opt/resources/human_genes.tsv
-elif [ $ORGANISM = "Mouse" ]
+elif [[ $ORGANISM == "Mouse" ]]
 then
     GENE_SET_FILE=${MOUSE_SETS_MAP[${GENE_SETS_DB}]}
     GENE_MAP_FILE=/opt/resources/mouse_genes.tsv
