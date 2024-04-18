@@ -36,7 +36,7 @@ then
     GENE_SET_FILE=${MOUSE_SETS_MAP[${GENE_SETS_DB}]}
     GENE_MAP_FILE=/opt/resources/mouse_genes.tsv
 else
-    echo "Not a valid organism choice." >&2
+    echo "Not a valid organism choice: $ORGANISM" >&2
     exit 1;
 fi
 
