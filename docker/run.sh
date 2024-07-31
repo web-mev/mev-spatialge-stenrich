@@ -9,7 +9,7 @@ ORGANISM=$6
 GENE_IDS=$7
 XPOS_COL=$8
 YPOS_COL=$9
-OUTPUT_FILENAME=$10
+OUTPUT_FILENAME=${10}
 
 declare -A HUMAN_SETS_MAP
 HUMAN_SETS_MAP["MSigDB Hallmark"]="/opt/resources/h.all.v2023.2.Hs.symbols.gmt"

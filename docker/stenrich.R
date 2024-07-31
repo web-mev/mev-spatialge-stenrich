@@ -176,7 +176,6 @@ stenrich_df <- STenrich(
 # If we want to put the gene in the gene set in the tibble, we
 # will have to join with the geneSets object.
 sample_df <- stenrich_df[[opt$sample_name]]
-print(head(sample_df))
 sample_df <- sample_df[, 2:dim(sample_df)[2]]
 
 # map the geneSet object from symbols (Default) back to 
