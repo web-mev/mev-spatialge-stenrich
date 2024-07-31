@@ -117,7 +117,7 @@ spat_list <- prep_stlist(opt$input_file,
 spat <- spat_list$spat
 
 # normalize
-spat <- transform_data(spat, method=opt$normalization)
+spat <- transform_data(spat, method=norm_scheme)
 
 # load the GMT. Note that fill=T handles the fact that we have a 
 # "jagged" table since each gene set can have a different number of genes 
