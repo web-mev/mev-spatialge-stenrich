@@ -7,7 +7,9 @@ NORMALIZATION_METHOD=$4
 GENE_SETS_DB=$5
 ORGANISM=$6
 GENE_IDS=$7
-OUTPUT_FILENAME=$8
+XPOS_COL=$8
+YPOS_COL=$9
+OUTPUT_FILENAME=$10
 
 declare -A HUMAN_SETS_MAP
 HUMAN_SETS_MAP["MSigDB Hallmark"]="/opt/resources/h.all.v2023.2.Hs.symbols.gmt"
@@ -50,7 +52,9 @@ then
         -g $GENE_SET_FILE \
         -m $GENE_MAP_FILE \
         -i $GENE_IDS \
-        -o $OUTPUT_FILENAME
+        -o $OUTPUT_FILENAME \
+        -x $XPOS_COL \
+        -y $YPOS_COL
 else
     echo "The choice of \"$GENE_SETS_DB\" was not a valid choice for your organism ($ORGANISM). Note that some gene sets are organism specific."
     exit 1;

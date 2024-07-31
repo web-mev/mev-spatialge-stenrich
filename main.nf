@@ -16,7 +16,7 @@ process run_stenrich {
     script:
         output_filename = "stenrich_pathways.json"
         """
-        /usr/local/bin/run.sh ${raw_counts} ${coords_metadata} "${params.sample_name}" ${params.normalization_method} "${params.gene_set_database}" ${params.organism} ${params.gene_id_choice} ${output_filename}
+        /usr/local/bin/run.sh ${raw_counts} ${coords_metadata} "${params.sample_name}" ${params.normalization_method} "${params.gene_set_database}" ${params.organism} ${params.gene_id_choice} ${params.xpos_col} ${params.ypos_col} ${output_filename}
         """
 }
 
